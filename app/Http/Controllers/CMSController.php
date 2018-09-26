@@ -3,17 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Repositories\CustomerRepository;
 
-class CustomerController extends Controller
+class CMSController extends Controller
 {
-      protected $customerRepository;
-
-   public function __construct(CustomerRepository $customerRepository)
-    {
-        $this->CustomerRepository=$customerRepository;
-         $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -21,7 +13,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-       return view('admin.customer.index');
+       return view('admin.cms.index');
     }
 
     /**
@@ -31,8 +23,7 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        return view('admin.customer.create');
-
+       return view('admin.cms.create');
     }
 
     /**
@@ -41,10 +32,9 @@ class CustomerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $data)
+    public function store(Request $request)
     {
-        $this->CustomerRepository->storeCustomer($data);
-         return redirect()->route('customer.index'); 
+        //
     }
 
     /**
@@ -53,10 +43,11 @@ class CustomerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request)
+    public function show($id)
     {
-      return $this->CustomerRepository->getCustomerData($request); 
+        //
     }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -65,8 +56,7 @@ class CustomerController extends Controller
      */
     public function edit($id)
     {
-        $customer=$this->CustomerRepository->editCustomer($id);
-        return view('admin.customer.edit',compact('customer'));
+        //
     }
 
     /**
@@ -76,11 +66,11 @@ class CustomerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $data)
+    public function update(Request $request, $id)
     {
-        $this->CustomerRepository->updateCustomer($data);
-         return redirect()->route('customer.index'); 
+        //
     }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -89,11 +79,6 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
-      $this->CustomerRepository->deleteCustomer($id);
-         return redirect()->route('customer.index');   
-    }
-    public function getdata(Request $request)
-    {
-     return $this->CustomerRepository->myCustom($request);
+        //
     }
 }

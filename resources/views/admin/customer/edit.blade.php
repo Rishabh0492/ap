@@ -7,7 +7,6 @@
     <section class="content-header">
       <h1>
         Edit Customer
-        <small>Preview</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="/home"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -24,11 +23,12 @@
           <!-- general form elements -->
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">Quick Example</h3>
+              <h3 class="box-title">Edit Customer Details</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form" method="post" action="/update/customer">
+              {!! Form::open(['url' => '/update/customer','method' => 'post']) !!}
+
                    {{ csrf_field() }}
                 <input type="hidden" name="id" value="{{ $customer->id}}">
               <div class="box-body">
@@ -64,7 +64,7 @@
               <div class="box-footer">
                 <button type="submit" class="btn btn-primary">Submit</button>
               </div>
-            </form>
+              {!! Form::close() !!}
           </div>
           <!-- /.box -->
 
@@ -80,4 +80,6 @@
     </section>
     <!-- /.content -->
   </div>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  
 @endsection

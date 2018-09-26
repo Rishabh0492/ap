@@ -54,7 +54,7 @@
             <div class="inner">
               <h3>{{$user}}</h3>
 
-              <p>User Registrations</p>
+              <p>Admin Users</p>
             </div>
             <div class="icon">
               <i class="ion ion-person-add"></i>

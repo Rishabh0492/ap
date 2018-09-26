@@ -1,12 +1,12 @@
 @extends('layouts.admin')
-@section('title','Label')
+@section('title','Labels')
 @section('content')
 
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Dynamic Label<br>
+        Labels<br>
         <a href='/admin/labels/create' class='btn btn-primary'>Add</a> 
       </h1>
       <ol class="breadcrumb">
@@ -19,14 +19,13 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">All Label List</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
               <table id="customerDataTable" class="table table-striped table-bordered">
                 <thead class="alert alert-info">
                 <tr>
-                  <th>Id</th>
+                  <th>Sr. No</th>
                   <th>Label Name</th>
                   <th>Language</th>
                   <th>Label value</th>
@@ -71,7 +70,7 @@
                      "data":{ _token: "{{csrf_token()}}"}
                    },
             "columns": [
-                {"data": "id" ,sortable:true},
+                {"data": "srNo" ,sortable:true},
                 {"data": "labelName",sortable:true },
                 {"data": "labelLanguage",sortable:true },
                 {"data": "labelValue",sortable:true},

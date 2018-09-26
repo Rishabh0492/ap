@@ -143,16 +143,23 @@
        
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-edit"></i> <span>Master</span>
+            <i class="fa fa-asterisk"></i> <span>Master</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="/admin/dynamic-emails"><i class="fa fa-circle-o"></i> Mail Templates</a></li>
+            <li><a href="/admin/email-templates"><i class="fa fa-circle-o"></i> Mail Templates</a></li>
             <li><a href="/admin/labels"><i class="fa fa-circle-o"></i> Label Management</a></li>
-            <li><a href="pages/forms/editors.html"><i class="fa fa-circle-o"></i> Settings</a></li>
+            <li><a href="/"><i class="fa fa-circle-o"></i> Settings</a></li>
           </ul>
+        </li>
+        <li>
+          <a href="/admin/cms">
+            <i class="fa fa-tasks fa-fw"></i> <span>CMS</span>
+            <span class="pull-right-container">
+            </span>
+          </a>
         </li>
         
       </ul>
@@ -168,7 +175,7 @@
     <div class="pull-right hidden-xs">
       <b>Version</b> 2.4.0
     </div>
-    <strong>Copyright &copy; 2018 <a href="">Virinsoft</a>.</strong> All rights
+    <strong>Copyright &copy; 2018 <a href="">Company</a>.</strong> All rights
     reserved.
   </footer>
 
@@ -176,7 +183,6 @@
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Create the tabs -->
     <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-      <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
       <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
     </ul>
     <!-- Tab panes -->
@@ -216,7 +222,6 @@
 
 <!-- Morris.js charts -->
 <script src="/admin/raphael/raphael.min.js"></script>
-<script src="/admin/morris.js/morris.min.js"></script>
 <!-- Sparkline -->
 <script src="/admin/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
 <!-- jvectormap -->

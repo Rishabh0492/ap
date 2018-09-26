@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title','Mail Templates')
+@section('title','Email | Create')
 @section('content')
 
   <title>AdminLTE 2 | Editors</title>
@@ -38,12 +38,13 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Mail Templates
+        Dynamic Email
+        <small>Advanced form element</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="/admin/dynamic-emails">Mail Templates</a></li>
-        <li class="active">Edit Mail Templates</li>
+        <li><a href="/admin/email-templates">Mail Template</a></li>
+        <li class="active">Create Mail Template</li>
       </ol>
     </section>
 
@@ -54,6 +55,7 @@
           <div class="box box-info">
             <div class="box-header">
               <h3 class="box-title"> Editor
+                <small>Advanced and full of features</small>
               </h3>
               <!-- tools box -->
             
@@ -61,26 +63,19 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body pad">
-            {!! Form::open(['url' => '/email/update', 'method' => 'post']) !!}
-                        {{ csrf_field() }}
-              <input type="hidden" name="id" value="{{$email->id}}">
-                    <textarea id="description" value="{{$email->description}}" 
-                    name="description" rows="10" cols="80">
+            {!! Form::open(['url' => '/store/cms','method' => 'post']) !!}
+                  {{ csrf_field() }}
+                  <input type="hidden" name="createdBy" value="{{Auth::user()->name}}">
+                   <div class="box-body">
+                      <div class="form-group">
+                       <label for="to">CMS Page Title</label>
+                        <input type="text" class="form-control" name="to" placeholder="Enter Mail Subject">
+                      </div>
+                         </div>
 
+                    <textarea id="description" name="description" rows="10" cols="80">
                     </textarea>
-                     <div class="box-body">
-                    <div class="form-group">
-                    <label for="to">Subject</label>
-                    <input type="text" class="form-control" value="{{$email->to}}"  name="to" placeholder="Enter Mail Subject">
-                </div>
-                 </div>
-
-                 <div class="box-body">
-                  <div class="form-group">
-                    <label for="to">Title</label>
-                    <input type="text" class="form-control" value="{{$email->subject}}" name="subject"  placeholder="Enter Mail Title">
-                </div>
-                </div>
+                     
                 <div class="box-body">
                     <div class="form-group">
                     <label >Select Status</label>
@@ -93,7 +88,7 @@
                  <div class="box-footer">
                 <button type="submit" class="btn btn-primary">Submit</button>
               </div>
-              {!! Form::close() !!}
+             {!! Form::close() !!}
             </div>
           </div>
           <!-- /.box -->
@@ -107,7 +102,10 @@
 </div>
 </body>
 <!-- ./wrapper -->
+
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
 
 <!-- jQuery 3 -->
 <script src="{{asset("/admin/jquery/dist/jquery.min.js")}}"></script>

@@ -43,8 +43,8 @@
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="/admin/dynamic-emails">Dynamic Emails</a></li>
-        <li class="active">Create Dynamic Emails</li>
+        <li><a href="/admin/email-templates">Mail Template</a></li>
+        <li class="active">Create Mail Template</li>
       </ol>
     </section>
 
@@ -63,10 +63,9 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body pad">
-              <form action="/email/update" method="post">
-              {{ csrf_field() }}
+            {!! Form::open(['url' => '/store/email','method' => 'post']) !!}
+                  {{ csrf_field() }}
                     <textarea id="description" name="description" rows="10" cols="80">
-                                            This is my textarea to be replaced with CKEditor.
                     </textarea>
                      <div class="box-body">
                     <div class="form-group">
@@ -81,10 +80,19 @@
                     <input type="text" class="form-control" name="subject" placeholder="Enter Mail Title">
                 </div>
                 </div>
+                <div class="box-body">
+                    <div class="form-group">
+                    <label >Select Status</label>
+                    <select name="status" class="form-control">
+                    <option value="1">Active</option>
+                    <option value="0">Deactive</option>
+                  </select>
+                </div>
+                </div>
                  <div class="box-footer">
                 <button type="submit" class="btn btn-primary">Submit</button>
               </div>
-              </form>
+             {!! Form::close() !!}
             </div>
           </div>
           <!-- /.box -->
@@ -98,6 +106,10 @@
 </div>
 </body>
 <!-- ./wrapper -->
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
 
 <!-- jQuery 3 -->
 <script src="{{asset("/admin/jquery/dist/jquery.min.js")}}"></script>

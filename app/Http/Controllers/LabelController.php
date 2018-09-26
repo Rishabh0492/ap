@@ -3,11 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-Use App\Label;
+use App\Repositories\LabelRepository;
 use Session;
 
 class LabelController extends Controller
 {
+    protected $labelRepository;
+
+    public function __construct(LabelRepository $labelRepository)
+    {
+        $this->LabelRepository=$labelRepository;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -27,7 +33,6 @@ class LabelController extends Controller
     {
         return view('admin.labels.create_label');
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -36,13 +41,9 @@ class LabelController extends Controller
      */
     public function store(Request $data)
     {
-         Label::create([
-            'label_name' => $data['labelName'],
-            'language_name' => Config('app.locale'),
-            'label_value' => $data['labelValue'],
-        ]);
-         return redirect('/en/admin/labels'); 
-     }
+         $this->LabelRepository->storeLabel($data);
+         return redirect()->route('label.index'); 
+    }
 
     /**
      * Display the specified resource.
@@ -52,68 +53,8 @@ class LabelController extends Controller
      */
     public function show(Request $request)
     {
-          $columns = array( 
-                            0 =>'id', 
-                            1 =>'label_name',
-                            2=> 'language_name',
-                            3=> 'label_value',
-                            4=> 'action',
-                        );
-  
-        $totalData = Label::count();
-            
-        $totalFiltered = $totalData; 
-        $limit = $request->input('length');
-        $start = $request->input('start');
-        $order = $columns[$request->input('order.0.column')];
-        $dir = $request->input('order.0.dir');
-            
-        if(empty($request->input('search.value')))
-        {            
-            $posts = Label::offset($start)
-                         ->limit($limit)
-                         ->orderBy($order,$dir)
-                         ->get();
-        } else {
-            $search = $request->input('search.value'); 
-
-            $posts =  Label::where('label_name','LIKE',"%{$search}%")
-                            ->orWhere('language_name', 'LIKE',"%{$search}%")
-                            ->orWhere('label_value', 'LIKE',"%{$search}%")
-                            ->offset($start)
-                            ->limit($limit)
-                            ->orderBy($order,$dir)
-                            ->get();
-
-            $totalFiltered = Label::where('label_name','LIKE',"%{$search}%")
-                            ->orWhere('language_name', 'LIKE',"%{$search}%")
-                             ->orWhere('label_value', 'LIKE',"%{$search}%")
-                             ->count();
-        }
-
-        $data = array();
-        if(!empty($posts))
-        {
-            foreach ($posts as $post)
-            {
-                $nestedData['id'] = $post->id;
-                $nestedData['labelName'] = $post->label_name;
-                $nestedData['labelLanguage'] = $post->language_name;
-                $nestedData['labelValue'] = $post->label_value;
-                $data[] = $nestedData;
-            }
-        }
-          
-        $json_data = array(
-                    "draw"            => intval($request->input('draw')),  
-                    "recordsTotal"    => intval($totalData),  
-                    "recordsFiltered" => intval($totalFiltered), 
-                    "data"            => $data   
-                    );
-            
-        echo json_encode($json_data); 
+      return $this->LabelRepository->getLabelData($request); 
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -122,7 +63,7 @@ class LabelController extends Controller
      */
     public function edit($id)
     {
-        $label=Label::find($id);
+        $label=$this->LabelRepository->editLabel($id);
         return view('admin.labels.edit_label',compact('label'));
     }
 
@@ -135,12 +76,8 @@ class LabelController extends Controller
      */
     public function update(Request $data)
     {
-        $label = Label::find($data->id);
-        $label->label_name= $data->labelName;
-        $label->label_value = $data->labelValue;
-        $label->language_name = Config('app.locale');
-         $label->save();
-         return redirect('/en/admin/labels'); 
+     $this->LabelRepository->updateLabel($data);
+         return redirect()->route('label.index'); 
     }
 
     /**
@@ -151,9 +88,7 @@ class LabelController extends Controller
      */
     public function destroy($id)
     {
-        $email = Label::find($id)   ;
-         $email->delete();
-         Session::flash('success', 'Label delete successfully!');
-         return redirect()->back(); 
+         $this->LabelRepository->deleteLabel($id);
+         return redirect()->back();  
     }
 }

@@ -1,31 +1,36 @@
 @extends('layouts.admin')
-@section('title','Users')
+@section('title','CMS')
 @section('content')
-<div class="content-wrapper">
+ <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-       All Admin Users<br>
+        CMS
       </h1>
       <ol class="breadcrumb">
         <li><a href="/home"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">All Users</a></li>
+        <li class="active">CMS Management</li>
       </ol>
     </section>
-  <section class="content">
-      <div class="row">
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <table id="customerDataTable" class="table table-striped table-bordered">
+              <table id="cmsDataTable" class="table table-striped table-bordered">
                 <thead class="alert alert-info">
                 <tr>
                   <th>Sr.No</th>
                   <th>Name</th>
                   <th>Email</th>
+                  <th>Mobile</th>
+                  <th>Registeration date</th>
+                  <th>Status</th>
                   <th>Action</th>
                 </tr>
                 </thead>
@@ -40,11 +45,14 @@
         </div>
         <!-- /.col -->
       </div>
-      <!-- /.row -->
+        </section>
+        <!-- right col -->
+      </div>
+      <!-- /.row (main row) -->
     </section>
     <!-- /.content -->
   </div>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
   
@@ -56,32 +64,42 @@
  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.8/css/jquery.dataTables.min.css">  
 <script>
  $(document).ready(function () {
-        $('#customerDataTable').DataTable({
+        $('#cmsDataTable').DataTable({
             "processing": true,
             "serverSide": true,
             "searching":true,
             "ajax":{
-                     "url": "/en/getRegisterdUser",
+                     "url": "/en/getCustomerData",
                      "dataType": "json",
                      "type": "post",
                      "data":{ _token: "{{csrf_token()}}"}
                    },
             "columns": [
-                {"data": "id" ,sortable:true},
+                {"data": "srNo" ,sortable:true},
                 {"data": "name",sortable:true },
                 {"data": "email",sortable:true },
-                {"data": "id",sortable:false,
-                "render": function(id) {
-                 if ({{ Auth::user()->id }} == id) {
-                 return "<i class='fa fa-circle text-success'></i>|<a href='/admin/{{Auth::user()->id}}/editprofile' class='fa fa-edit btn-flat'></a>|<a href='/admin/user/delete/"+id+"' class='fa fa-trash'></a>";
-                } else{
-                 return "<a href='/admin/user/delete/"+id+"' class='fa fa-trash'></a>";
+                {"data": "mobile",sortable:true},
+                {"data": "registeration",sortable:true},
+                 {
+                "data": "status",sortable:false,
+                "render": function(status) {
+                  if (status==1) {
+                 return "<a href='' class='label label-success'>Active</a>";
+                } else {
+                  return "<a href='' class='label label-danger'>Deactive</a>";
+                } 
 
                 }
-              }
-              }
+                },
+                {"data": "id",sortable:false,
+                "render": function(id) {
+                 return "<a href='/admin/edit/"+id+"/customer'><i class='fa fa-edit'></i></a>|<a ><i</a>|<a href='/admin/customer/delete/"+id+"' class='fa fa-trash'></a>";
+                }
+              },
             ]    
         });
     });
 </script>
-@endSection
+
+  @endsection
+

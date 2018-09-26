@@ -1,79 +1,134 @@
 @extends('layouts.admin')
-@section('title','Dashboard')
+@section('title','Email | Create')
 @section('content')
 
-<div class="content-wrapper">
+  <title>AdminLTE 2 | Editors</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.7 -->
+  <link rel="stylesheet" href="/admin/bootstrap/dist/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="/admin/font-awesome/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="/admin/Ionicons/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="/admin/dist/css/AdminLTE.min.css">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="/admin/dist/css/skins/_all-skins.min.css">
+  <!-- bootstrap wysihtml5 - text editor -->
+  <link rel="stylesheet" href="/admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+  <!-- Google Font -->
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Create Customer
-        <small>Preview</small>
+        Dynamic Email
+        <small>Advanced form element</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="/home"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Customer</a></li>
-        <li class="active">Create</li>
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="/admin/email-templates">Mail Template</a></li>
+        <li class="active">Create Mail Template</li>
       </ol>
     </section>
 
     <!-- Main content -->
     <section class="content">
       <div class="row">
-        <!-- left column -->
-        <div class="col-md-6">
-          <!-- general form elements -->
-          <div class="box box-primary">
-            <div class="box-header with-border">
-              <h3 class="box-title">Quick Example</h3>
+        <div class="col-md-12">
+          <div class="box box-info">
+            <div class="box-header">
+              <h3 class="box-title"> Editor
+                <small>Advanced and full of features</small>
+              </h3>
+              <!-- tools box -->
+            
+              <!-- /. tools -->
             </div>
             <!-- /.box-header -->
-            <!-- form start -->
-            <form role="form" method="post" action="/customer/store">
-                   {{ csrf_field() }}
-                <input type="hidden" name="id" value="{{auth::user()->id}}">
-              <div class="box-body">
-                <div class="form-group">
-                  <label for="name">Name</label>
-                  <input type="text" class="form-control" name="name" placeholder="Enter Name">
+            <div class="box-body pad">
+            {!! Form::open(['url' => '/store/email','method' => 'post']) !!}
+                  {{ csrf_field() }}
+                    <textarea id="description" name="description" rows="10" cols="80">
+                    </textarea>
+                     <div class="box-body">
+                    <div class="form-group">
+                    <label for="to">Subject</label>
+                    <input type="text" class="form-control" name="to" placeholder="Enter Mail Subject">
                 </div>
-                </div>
+                 </div>
+
                  <div class="box-body">
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Email</label>
-                  <input type="email" class="form-control" id="exampleInputEmail1"  name="email" placeholder="Enter email" require>
+                 <div class="form-group">
+                    <label for="to">Title</label>
+                    <input type="text" class="form-control" name="subject" placeholder="Enter Mail Title">
                 </div>
                 </div>
-                 <div class="box-body">
-               <div class="form-group">
-                  <label for="mobile">Mobile</label>
-                  <input type="mobile" class="form-control" id="exampleInputEmail1"  name="mobile" placeholder="Enter Mobile Number">
-                </div>   
-              </div>
-                 <div class="box-body">
-              <div class="form-group">
-                  <label for="registerationDate" mobile">Registeration Date</label>
-                  <input type="date" class="form-control" id="registerationDate" 
-                   name="registerationDate" >
-                </div>   
+                <div class="box-body">
+                    <div class="form-group">
+                    <label >Select Status</label>
+                    <select name="status" class="form-control">
+                    <option value="1">Active</option>
+                    <option value="0">Deactive</option>
+                  </select>
                 </div>
-              <!-- /.box-body -->
-              <div class="box-footer">
+                </div>
+                 <div class="box-footer">
                 <button type="submit" class="btn btn-primary">Submit</button>
               </div>
-            </form>
+             {!! Form::close() !!}
+            </div>
           </div>
           <!-- /.box -->
-
-          <!-- Form Element sizes -->
-      
-          <!-- /.box -->
-
         </div>
-        <!--/.col (left) -->
-        <!--/.col (right) -->
+        <!-- /.col-->
       </div>
-      <!-- /.row -->
+      <!-- ./row -->
     </section>
     <!-- /.content -->
   </div>
-@endsection
+</div>
+</body>
+<!-- ./wrapper -->
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+<!-- jQuery 3 -->
+<script src="{{asset("/admin/jquery/dist/jquery.min.js")}}"></script>
+<!-- Bootstrap 3.3.7 -->
+<!-- FastClick -->
+<!-- AdminLTE App -->
+<!-- AdminLTE for demo purposes -->
+<!-- CK Editor -->
+<script src="{{asset("/admin/ckeditor/ckeditor.js")}}"></script>
+<!-- Bootstrap WYSIHTML5 -->
+
+<script>
+  $(function () {
+    // Replace the <textarea id="editor1"> with a CKEditor
+    // instance, using default configuration.
+    CKEDITOR.replace('description')
+    //bootstrap WYSIHTML5 - text editor
+    $('.textarea').wysihtml5()
+  })
+</script>
+  @endsection
+

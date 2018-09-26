@@ -1,16 +1,17 @@
 @extends('layouts.admin')
-@section('title','Dynamic Email | Edit')
+@section('title','Mail Templates')
 @section('content')
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Dynamic Email<br>
-        <a href='/admin/dynamic-emails/create' class='btn btn-primary'>Add</a> 
+        Mail Templates<br>
+        <a href='/admin/email-templates/create' class='btn btn-primary'>Add</a> 
       </h1>
       <ol class="breadcrumb">
         <li><a href="/home"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Dynamic Email</a></li>
+        <li><a href="#">Master</a></li>
+        <li><a href="#">Mail Templates</a></li>
       </ol>
     </section>
   <section class="content">
@@ -18,7 +19,6 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">All Email Template</h3>
               @if (Session::has('message'))
           <div class="alert alert-info">{{ Session::get('message') }}</div>
                @endif
@@ -30,7 +30,8 @@
                 <tr>
                   <th>Sr.No</th>
                   <th>Title</th>
-                  <th>subject</th>
+                  <th>Subject</th>
+                  <th>Status</th>
                   <th>Action</th>
                 </tr>
                 </thead>
@@ -59,7 +60,7 @@
  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.8/css/jquery.dataTables.min.css">
 <script type="text/javascript">
  $(document).ready(function () {
-        $('#customerDataTable').DataTable({
+    var customerTable =$('#customerDataTable').DataTable({
            "pagingType": "full_numbers",
             "processing": true,
             "serverSide": true,
@@ -71,17 +72,29 @@
                      "data":{ _token: "{{csrf_token()}}"}
                    },
             "columns": [
-                {"data": "id" ,sortable:true},
+                {"data": "srNo" ,sortable:false},
                 {"data": "to",sortable:true },
                 {"data": "subject",sortable:true },
+                {
+                "data": "status",sortable:true,
+                "render": function(status) {
+                  if (status==1) {
+                 return "<a href='' class='label label-success'>Active</a>";
+                  } else {
+                  return "<a href='' class='label label-danger'>Deactive</a>";
+                         } 
+
+                  }
+                },
             {
                   "data": "id",sortable:false,
                 "render": function(id) {
-                 return "<a href='/admin/dynamic-emails/"+id+"/edit' class='fa fa-edit'></a>| <a href='/admin/template/delete/"+id+"' class='fa fa-trash'></a> ";
+                 return "<a href='/admin/email-templates/"+id+"/edit' class='fa fa-edit'></a>| <a href='/admin/template/delete/"+id+"' class='fa fa-trash'></a> ";
                 }
             }
             ]    
         });
+         
     });
 </script>
 @endSection
